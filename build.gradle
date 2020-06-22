@@ -1,0 +1,49 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
+
+group 'com.elastic.api'
+version '1.0-SNAPSHOT'
+
+apply from: 'build-common.gradle'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web:${versions.springBoot}"
+
+    compile "org.springframework.boot:spring-boot-starter-jersey:${versions.springBoot}"
+
+    compile "org.elasticsearch.client:elasticsearch-rest-high-level-client:${versions.elasticSearch}"
+    // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
+    compile "org.elasticsearch:elasticsearch:${versions.elasticSearch}"
+    //compile "org.elasticsearch.client:transport:${versions.elasticSearch}"
+
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:${versions.jackson}"
+
+    // https://mvnrepository.com/artifact/com.codahale.metrics/metrics-core
+    compile "com.codahale.metrics:metrics-core:${versions.metricsCore}"
+    // https://mvnrepository.com/artifact/io.dropwizard.metrics/metrics-jersey2
+    compile "io.dropwizard.metrics:metrics-jersey2:${versions.metrics}"
+    // https://mvnrepository.com/artifact/io.swagger/swagger-annotations
+    compile "io.swagger:swagger-annotations:${versions.swagger}"
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compile "org.projectlombok:lombok:${versions.lombok}"
+
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
